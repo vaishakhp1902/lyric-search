@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
 import axios from 'axios'
+import Spinner from '../layouts/Spinner'
+
+import { Link } from 'react-router-dom'
 
  class Lyrics   extends Component {
 
@@ -36,12 +39,49 @@ import axios from 'axios'
 
     }
     render() {
+
+        const {track,lyrics} = this.state
+       if (track=== undefined || 
+        lyrics===undefined || 
+        Object.keys(track).length ===0 || 
+        Object.keys(lyrics).length ===0 ){
+            return <Spinner />
+
+
+       } else {
+
         return (
-            <div>
-            <h1>Lyrics</h1>
-                
+
+            <React.Fragment>
+            <Link to='/' className='btn btn-dark btn-sm mb-4'>Back</Link>
+            <div className='card'>
+            <h5 className='card-header'>
+            {track.track_name} by <span className='text-secondary'>{track.artist_name}</span>
+            
+            </h5>
+
+            <div className='card-body'>
+            <p className='card-text'>{lyrics.lyrics_body}</p>
+            
             </div>
+            
+            </div>
+
+            <ul className='list-group mt-3'>
+            <li className='list-group-item'>
+            <strong>Album ID</strong>: {track.album_id}
+            </li>
+
+            <li className='list-group-item'>
+            <strong>Album ID</strong>: {track.album_id}
+            </li>
+            </ul>
+
+            
+            </React.Fragment>
         )
+
+       }
     }
 }
 
